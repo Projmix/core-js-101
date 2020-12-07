@@ -18,8 +18,8 @@
  *   'aa',''    => 'aa'
  *   '',  'bb'  => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1 + value2;
 }
 
 
@@ -34,8 +34,8 @@ function concatenateStrings(/* value1, value2 */) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  return value.length;
 }
 
 /**
@@ -51,8 +51,8 @@ function getStringLength(/* value */) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -65,8 +65,8 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.slice((value.indexOf(' ') + 1), value.indexOf('!'));
 }
 
 
@@ -80,8 +80,8 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.slice(0, 1);
 }
 
 /**
@@ -95,8 +95,8 @@ function getFirstChar(/* value */) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.match(/(\w+.+)(\S)/)[0];
 }
 
 /**
@@ -110,8 +110,8 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return value.repeat(count);
 }
 
 /**
@@ -126,8 +126,8 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return `${str.slice(0, str.indexOf(value))}${str.slice(str.indexOf(value) + value.length)}`;
 }
 
 /**
@@ -141,8 +141,8 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, str.length - 1);
 }
 
 
@@ -156,8 +156,8 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -175,8 +175,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.match(/\w+.\w+.\w+.\w+(|$)/g);
 }
 
 /**
@@ -202,8 +202,19 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const space = ' ';
+  const column = '│';
+  const line = '─';
+  const upLeft = '┌';
+  const upRight = '┐';
+  const lowerLeft = '└';
+  const lowerRight = '┘';
+  const widthSpace = `${column}${space.repeat(width - 2)}${column}\n`;
+  const rectangleFirst = `${upLeft}${line.repeat(width - 2)}${upRight}\n`;
+  const rectangleEnd = `${lowerLeft}${line.repeat(width - 2)}${lowerRight}\n`;
+  const rectangle = `${rectangleFirst}${widthSpace.repeat(height - 2)}${rectangleEnd}`;
+  return rectangle;
 }
 
 
@@ -223,8 +234,16 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const ROT13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  return str.split(' ').map((strElement) => {
+    let element = strElement;
+    for (let i = 0; i < strElement.length; i += 1) {
+      element = element[i].search(/[a-zA-Z]/) === -1 ? element : element.substring(0, i) + ROT13[ABC.indexOf(element[i])] + element.substring(i + 1);
+    }
+    return element;
+  }).join(' ');
 }
 
 /**
@@ -240,8 +259,11 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (value && typeof value === 'string') return true;
+
+  if (value && typeof value.valueOf() === 'string') return true;
+  return false;
 }
 
 
@@ -269,8 +291,31 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const Clubs = '♣';
+  const Diamonds = '♦';
+  const Hearts = '♥';
+  const Spades = '♠';
+  let multiplier1;
+  const foo = value.match(/\w+/)[0];
+  switch (foo) {
+    case 'A': multiplier1 = 1;
+      break;
+    case 'J': multiplier1 = 11;
+      break;
+    case 'Q': multiplier1 = 12;
+      break;
+    case 'K': multiplier1 = 13;
+      break;
+    default: multiplier1 = foo;
+      break;
+  }
+  let multiplier2;
+  if (value.indexOf(Clubs) > 0) multiplier2 = 0;
+  if (value.indexOf(Diamonds) > 0) multiplier2 = 1;
+  if (value.indexOf(Hearts) > 0) multiplier2 = 2;
+  if (value.indexOf(Spades) > 0)multiplier2 = 3;
+  return (Number(multiplier1) + (multiplier2 * 13) - 1);
 }
 
 
