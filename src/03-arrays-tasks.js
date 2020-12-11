@@ -542,11 +542,10 @@ function getIntervalArray(start, end) {
  */
 function distinct(arr) {
   const rez = [];
-  const no = arr.filter((el) => {
+  arr.filter((el) => {
     if (rez.indexOf(el) === -1) rez.push(el);
     return el;
   });
-  console.log(no);
   return rez;
 }
 
